@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Doctor Image Analysis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body class="min-h-screen bg-gray-900 text-gray-200 font-sans">
+    <div class="container mx-auto p-6">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-purple-400">AI-DOCTOR (Medical Chatbot)</h1>
+            <p class="text-gray-400 mt-2">Upload an image and get medical insights from AI models</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+                <h2 class="text-lg font-semibold text-purple-300">📤 Upload Image</h2>
+                <input type="file" id="image-upload" accept="image/*" class="w-full mt-4 p-2 bg-gray-700 text-gray-200 rounded" />
+                <div id="image-container" class="hidden mt-4">
+                    <img id="display-image" src="" class="w-full rounded-lg shadow-lg" />
+                </div>
+            </div>
+            <div class="bg-gray-800 p-6 rounded-xl shadow-lg">
+                <h2 class="text-lg font-semibold text-blue-300">💬 Ask a Question</h2>
+                <textarea id="query-input" rows="4" placeholder="Enter your question..." class="w-full mt-4 p-2 bg-gray-700 text-gray-200 rounded"></textarea>   
+                <label class="block mt-4 text-gray-400">Select AI Model:</label>
+                <select id="model-select" class="w-full p-2 mt-2 bg-gray-700 text-gray-200 rounded">
+                    <option value="llama">Llama-3.2-11b-Vision</option>
+                    <option value="llava">Llama-3.2-90b-Vision</option>
+                </select>    
+                <button id="submit-query" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg mt-4 transition">🚀 Submit</button>
+            </div>
+        </div>
+        <div class="mt-8 p-6 bg-gray-800 rounded-xl shadow-lg">
+            <h2 class="text-lg font-semibold text-green-300">🤖 AI Response</h2>
+            <div id="response-container" class="hidden mt-4 p-4 bg-gray-700 rounded text-gray-300"></div>
+        </div>
+        <div id="error-container" class="hidden mt-8 p-4 bg-red-500 text-white rounded">
+            <p id="error-text"></p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const imageUpload = document.getElementById('image-upload');
+            const displayImage = document.getElementById('display-image');
+            const imageContainer = document.getElementById('image-container');
+            const queryInput = document.getElementById('query-input');
+            const modelSelect = document.getElementById('model-select');
+            const submitQuery = document.getElementById('submit-query');
+            const responseContainer = document.getElementById('response-container');
+            const errorContainer = document.getElementById('error-container');
+            const errorText = document.getElementById('error-text');
+
+            imageUpload.addEventListener('change', (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        displayImage.src = e.target.result;
+                        imageContainer.classList.remove('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            submitQuery.addEventListener('click', async () => {
+                const image = imageUpload.files[0];
+                const query = queryInput.value;
+                const model = modelSelect.value;
+
+                if (!image || !query) {
+                    showError('⚠️ Please upload an image and enter a query.');
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('image', image);
+                formData.append('query', query);
+                formData.append('model', model);
+
+                try {
+                    submitQuery.disabled = true;
+                    submitQuery.textContent = 'Processing... ⏳';
+                    
+                    const response = await fetch('/upload_and_query', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(result.detail || 'An error occurred while processing your request.');
+                    }
+
+                    responseContainer.innerHTML = marked.parse(result[model]);
+                    responseContainer.classList.remove('hidden');
+                    errorContainer.classList.add('hidden');
+                } catch (error) {
+                    console.error('Error:', error);
+                    showError(error.message);
+                } finally {
+                    submitQuery.disabled = false;
+                    submitQuery.textContent = '🚀 Submit';
+                }
+            });
+
+            function showError(message) {
+                errorText.textContent = message;
+                errorContainer.classList.remove('hidden');
+                responseContainer.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
