@@ -31,8 +31,11 @@ dotenv – Securely loads API keys from .env file.
 
 # Usage Guide
 1️⃣ Upload a medical image.
+
 2️⃣ Type your medical question related to the image.
+
 3️⃣ Select an AI model (Llama-3.2-11b-Vision or Llama-3.2-90b-Vision).
+
 4️⃣ Click "Submit" to get AI-generated insights.
 
 # ScreenShot:-
