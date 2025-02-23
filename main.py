@@ -11,9 +11,9 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 
-GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions" 
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY") #enter api key of GROQ
 
 if not GROQ_API_KEY:
     raise ValueError("GROQ API KEY is not set in the .env file")
