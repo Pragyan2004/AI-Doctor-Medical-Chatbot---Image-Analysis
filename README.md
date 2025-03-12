@@ -1,4 +1,4 @@
-# AI-Doctor-Medical-Chatbot-Image-Analysis
+![Screenshot 2025-03-12 213135](https://github.com/user-attachments/assets/e0dc308a-1c7b-46f4-91f8-3f0e6c3fef51)# AI-Doctor-Medical-Chatbot-Image-Analysis
 
 An AI-powered medical chatbot that allows users to upload medical images and receive AI-generated insights based on their queries. The application integrates FastAPI for backend processing, Tailwind CSS for a modern UI, and Groq's Llama-3.2 Vision API for AI-based image analysis.
 
@@ -40,8 +40,9 @@ dotenv – Securely loads API keys from .env file.
 
 # ScreenShot:-
 
-![Screenshot (629)](https://github.com/user-attachments/assets/e8e6341c-902a-416d-8e62-a1de255160aa)
+![Screenshot 2025-03-12 213135](https://github.com/user-attachments/assets/4e444233-3048-4a5a-bf1c-3250ee59dc68)
 
-![Screenshot (630)](https://github.com/user-attachments/assets/d17997f8-192b-4ba6-a6ff-8b099a822b58)
+
+![Screenshot 2025-03-12 213314](https://github.com/user-attachments/assets/13956f2c-fabf-4b85-9444-a4a85cf346e1)
 
 
