@@ -1,4 +1,6 @@
-![Screenshot 2025-03-12 213135](https://github.com/user-attachments/assets/e0dc308a-1c7b-46f4-91f8-3f0e6c3fef51)# AI-Doctor-Medical-Chatbot-Image-Analysis
+![Screenshot 2025-03-12 213135](https://github.com/user-attachments/assets/e0dc308a-1c7b-46f4-91f8-3f0e6c3fef51)
+
+# AI-Doctor-Medical-Chatbot-Image-Analysis
 
 An AI-powered medical chatbot that allows users to upload medical images and receive AI-generated insights based on their queries. The application integrates FastAPI for backend processing, Tailwind CSS for a modern UI, and Groq's Llama-3.2 Vision API for AI-based image analysis.
 
