@@ -1,4 +1,3 @@
-![Screenshot 2025-03-12 213135](https://github.com/user-attachments/assets/e0dc308a-1c7b-46f4-91f8-3f0e6c3fef51)
 
 # AI-Doctor-Medical-Chatbot-Image-Analysis
 
